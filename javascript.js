@@ -1,12 +1,11 @@
 var map = L.map('map').fitWorld();
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', 
-    {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    {attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18, 
-    username: 'johnkamau',
-    id: 'mapbox://styles/johnkamau/cla91oujt000214prwek8napt',
-    accessToken: 'pk.eyJ1Ijoiam9obmthbWF1IiwiYSI6ImNsY2w5bHhscDFnNXAzbnA4anNqZ2hpNmgifQ.FZMLzgOhWNIe0TnxTgEtzA',
+    username: 'johnkamau', 
+    id: 'mapbox/dark-v10',
+    accessToken: 'pk.eyJ1Ijoiam9obmthbWF1IiwiYSI6ImNsY2xmNjk4cTYzaTgzcWxrdzBtNWs2cWMifQ.FkeyGo6hi5tW9dx-GmAhHA',
     tileSize: 512,
     zoomOffset: -1,    
 }).addTo(map);
