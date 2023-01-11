@@ -4,11 +4,11 @@ var light = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     username: 'johnkamau',
-    id:'mapbox/light-v10',
+    id:'mapbox/light-v11',
     accessToken: 'pk.eyJ1Ijoiam9obmthbWF1IiwiYSI6ImNsY2xmNjk4cTYzaTgzcWxrdzBtNWs2cWMifQ.FkeyGo6hi5tW9dx-GmAhHA',
     tileSize: 512,
     zoomOffset: -1,
-});
+})
 
 var dark = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -20,7 +20,7 @@ var dark = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?
     zoomOffset: -1,
 })
 
-var map = L.map('map',{ layers: [light] }).fitWorld();
+var map = L.map('map',{ layers:[light]}).fitWorld();
 
 function onLocationFound(e) {
   var radius = e.accuracy; // this defines a variable radius as the accuracy value returned by the locate method. The unit is meters.
@@ -40,10 +40,10 @@ function onLocationFound(e) {
     L.circle(e.latlng, radius, { color: 'red' }).addTo(map);
   }
 var times = SunCalc.getTimes(new Date(), e.latitude, e.longitude);
-var sunrise = times.sunrise.getHours();
-var sunset = times.sunset.getHours();
+var sunrise = times.sunrise.getHours()*60 + times.sunrise.getMinutes();
+var sunset = times.sunset.getHours()*60 + times.sunset.getMinutes(); 
 
-var currentTime = new Date().getHours();
+var currentTime = new Date().getHours()*60 + new Date().getMinutes(); 
         if (sunrise < currentTime && currentTime < sunset){
         map.removeLayer(dark);
         map.addLayer(light);
@@ -52,6 +52,8 @@ var currentTime = new Date().getHours();
         map.removeLayer(light);
         map.addLayer(dark);
         }
+        
+console.log(currentTime, sunrise, sunset )
 }
 
 map.on('locationfound', onLocationFound); // this is the event listener
@@ -106,7 +108,7 @@ window.onload = showAlert;
   
   // Layer Control
 const baseLayers = {
-        'Nighttime Basemap': light,
-        'Daytime Basemap': dark
+        'Nighttime Basemap': dark,
+        'Daytime Basemap': light
         };
 const layerControl = L.control.layers(baseLayers).addTo(map);
