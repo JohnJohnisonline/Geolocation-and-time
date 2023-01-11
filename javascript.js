@@ -62,7 +62,12 @@ function onLocationError(e) {
 
 map.on('locationerror', onLocationError);
 
-map.locate({ setView: true, maxZoom: 16 });
+var helloPopup = L.popup().setContent('Hello World!');
+
+L.easyButton('Click for Location', function(btn, map){
+   map.locate({ setView: true, maxZoom: 16 });
+}).addTo(map);
+
 
 function showAlert() {
         // Check if the "alertShown" cookie is set
